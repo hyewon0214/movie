@@ -12,7 +12,7 @@ program_list_string = input('>> : ')
 program_list = program_list_string.split(',')
 
 URL = 'https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query='
-driver = webdriver.Chrome('C:\Users\sec\Downloads\chromedriver_win32')
+driver = webdriver.Chrome('C:/chromedriver.exe')
 driver.get(url=URL)
 result=[]
 for movie in program_list:
@@ -34,7 +34,7 @@ driver.close()
 
 with open('movie_score.csv','w',newline='') as csvfile:
     writer=csv.writer(csvfile)
-    writer.writerow(['영화명','평점'])
+    writer.writerow(['영화명','평점','관객수'])
     for i in result:
         writer.writerow(i)
 
