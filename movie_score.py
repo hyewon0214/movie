@@ -12,7 +12,7 @@ program_list_string = input('>> : ')
 program_list = program_list_string.split(',')
 
 URL = 'https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query='
-driver = webdriver.Chrome('C:/chromedriver.exe')
+driver = webdriver.Chrome('C:\Users\sec\Downloads\chromedriver_win32')
 driver.get(url=URL)
 result=[]
 for movie in program_list:
@@ -31,3 +31,17 @@ for movie in program_list:
 time.sleep(3)
 print(result)
 driver.close()
+
+with open('movie_score.csv','w',newline='') as csvfile:
+    writer=csv.writer(csvfile)
+    writer.writerow(['영화명','평점'])
+    for i in result:
+        writer.writerow(i)
+
+df=pd.read_csv('movie_score.csv', index_col='영화명', encoding='euc-kr')
+plt.rc('font', family='Malgun Gothic')
+ax=df.plot(kind='bar', figsize=(2000,3),legend = True, fontsize=12)
+ax.set_xlabel('영화명',fontsize=12)
+ax.set_ylabel('평점',fontsize=12)
+ax.legend(['평점'],fontsize=12)
+plt.show()
